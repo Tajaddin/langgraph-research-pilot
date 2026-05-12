@@ -21,5 +21,5 @@ def test_search_result_defaults_score() -> None:
 
 
 def test_audit_entry_defaults_elapsed() -> None:
-    a = make_audit_entry(node="plan", summary="ok")
+    a = make_audit_entry(node="planner", summary="ok")
     assert a["elapsed_ms"] == 0

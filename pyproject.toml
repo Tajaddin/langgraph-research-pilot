@@ -23,26 +23,26 @@ classifiers = [
 ]
 
 dependencies = [
-    "langgraph>=0.2.0",
-    "langgraph-checkpoint-sqlite>=2.0",
-    "langchain-core>=0.3.0",
-    "pydantic>=2.5",
-    "httpx>=0.27",
-    "typing-extensions>=4.9",
+    "langgraph==0.2.50",
+    "langgraph-checkpoint-sqlite==2.0.4",
+    "langchain-core==0.3.21",
+    "pydantic==2.9.2",
+    "httpx==0.27.2",
+    "typing-extensions==4.15.0",
 ]
 
 [project.optional-dependencies]
-hf = ["huggingface-hub>=0.24"]
-anthropic = ["anthropic>=0.39"]
-groq = ["groq>=0.10"]
-ollama = ["ollama>=0.3"]
-ui = ["gradio>=4.40"]
-eval = ["datasets>=2.20"]
+hf = ["huggingface-hub==0.26.2"]
+anthropic = ["anthropic==0.39.0"]
+groq = ["groq==0.11.0"]
+ollama = ["ollama==0.3.3"]
+ui = ["gradio==4.44.1"]
+eval = ["datasets==2.21.0"]
 dev = [
-    "pytest>=8.0",
-    "pytest-asyncio>=0.23",
-    "ruff>=0.6",
-    "mypy>=1.10",
+    "pytest==8.3.3",
+    "pytest-asyncio==0.24.0",
+    "ruff==0.6.9",
+    "mypy==1.13.0",
 ]
 
 [project.scripts]

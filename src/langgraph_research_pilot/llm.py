@@ -20,9 +20,9 @@ class MockLLM:
     """Deterministic LLM for tests and offline demos.
 
     Three resolution modes, tried in order:
-    1. ``handler`` callable — full control, called with ``(prompt, system)``
-    2. ``canned`` dict — substring match against the prompt
-    3. Built-in heuristics for the planner/synthesizer prompts
+    1. ``handler`` callable: full control, called with ``(prompt, system)``.
+    2. ``canned`` dict: substring match against the prompt.
+    3. Built-in heuristics for the planner and synthesizer prompts.
     """
 
     def __init__(

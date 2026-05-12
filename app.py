@@ -66,7 +66,7 @@ def _format_search(search_results: dict, plan: list[dict]) -> str:
             lines.append("- _no hits_")
             continue
         for hit in hits:
-            lines.append(f"- [{hit['title']}]({hit['url']}) — {hit['snippet'][:240]}{'...' if len(hit['snippet']) > 240 else ''}")
+            lines.append(f"- [{hit['title']}]({hit['url']}): {hit['snippet'][:240]}{'...' if len(hit['snippet']) > 240 else ''}")
     return "\n".join(lines)
 
 
@@ -86,7 +86,7 @@ def _format_audit(audit: list[dict]) -> str:
         return ""
     lines = ["### Audit trail"]
     for entry in audit:
-        lines.append(f"- `{entry['node']}` — {entry['summary']} ({entry['elapsed_ms']} ms)")
+        lines.append(f"- `{entry['node']}`: {entry['summary']} ({entry['elapsed_ms']} ms)")
     return "\n".join(lines)
 
 
@@ -197,14 +197,13 @@ THEME = gr.themes.Soft(primary_hue="indigo", secondary_hue="slate")
 DESCRIPTION = f"""
 # LangGraph Research Pilot
 
-Multi-step research agent with **human-in-the-loop approval gates**. Decomposes a question into sub-questions,
-retrieves Wikipedia snippets for each, drafts per-sub-question answers, then synthesizes a grounded final answer.
+Multi-step research agent with human-in-the-loop approval gates. The agent decomposes a question into sub-questions,
+retrieves Wikipedia snippets for each, drafts per-sub-question answers, and synthesizes a grounded final answer.
 
-The agent **pauses twice for your approval** — first after retrieval (so you can inspect sources before the model
-spends tokens on synthesis), then after the per-sub-question drafts (so you can catch reasoning errors before
-the final answer).
+The agent pauses twice for your approval. First after retrieval, so you inspect sources before the model spends
+tokens on synthesis. Second after the per-sub-question drafts, so you catch reasoning errors before the final answer.
 
-**Backend:** {'`' + MODEL_LABEL + '` via HuggingFace Inference API' if USING_REAL_LLM else '`MockLLM` (no HF_TOKEN set — set one in Space secrets to enable real generation).'}
+Backend: {'`' + MODEL_LABEL + '` via HuggingFace Inference API' if USING_REAL_LLM else '`MockLLM` (no HF_TOKEN set. Add one in Space secrets to enable real generation).'}
 """
 
 

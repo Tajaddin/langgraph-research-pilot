@@ -90,7 +90,7 @@ def make_plan_node(llm: LLMClient, max_sub_questions: int = 4) -> Callable[[Rese
         audit = list(state.get("audit_log") or [])
         audit.append(
             make_audit_entry(
-                node="plan",
+                node="planner",
                 summary=f"Decomposed into {len(plan_items)} sub-questions with {total_q} reformulated queries",
                 elapsed_ms=elapsed,
             )

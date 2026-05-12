@@ -1,4 +1,4 @@
-# HotpotQA benchmark — results
+# HotpotQA benchmark results
 Backend: `AnthropicClient` | Model: `claude-haiku-4-5-20251001` | n=30 | seed=7
 ## Headline
 | Metric | Single-prompt baseline | Multi-step agent | Lift |

@@ -47,7 +47,7 @@ def test_plan_node_populates_plan(llm, search) -> None:
     delta = plan({"question": "Tell me about Marie Curie."})
     assert "plan" in delta
     assert len(delta["plan"]) == 2
-    assert delta["audit_log"][-1]["node"] == "plan"
+    assert delta["audit_log"][-1]["node"] == "planner"
 
 
 def test_search_node_fans_out(llm, search) -> None:

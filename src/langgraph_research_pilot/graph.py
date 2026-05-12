@@ -59,15 +59,15 @@ def build_graph(
     verify_node = make_verify_node(llm)
 
     graph: StateGraph = StateGraph(ResearchState)
-    graph.add_node("plan", plan)
+    graph.add_node("planner", plan)
     graph.add_node("search", do_search)
     graph.add_node("answer", answer)
     graph.add_node("synthesize", synthesize)
     if verify:
         graph.add_node("verify", verify_node)
 
-    graph.add_edge(START, "plan")
-    graph.add_edge("plan", "search")
+    graph.add_edge(START, "planner")
+    graph.add_edge("planner", "search")
     graph.add_edge("search", "answer")
     graph.add_edge("answer", "synthesize")
     if verify:
@@ -93,7 +93,7 @@ def build_graph(
 def make_sqlite_checkpointer(path: str) -> Any:
     """Open a SQLite checkpointer context manager at ``path``.
 
-    The result is a context manager — use it inside a ``with`` block so the
+    The result is a context manager. Use it inside a ``with`` block so the
     SQLite connection closes cleanly when the run finishes. Useful for
     resume-from-crash demos.
 

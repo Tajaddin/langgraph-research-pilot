@@ -25,4 +25,4 @@ def test_graph_audit_log_in_order(llm, search) -> None:
     config = {"configurable": {"thread_id": thread_id}}
     state = graph.invoke({"question": "Tell me about Marie Curie."}, config=config)
     nodes = [entry["node"] for entry in state["audit_log"]]
-    assert nodes == ["plan", "search", "answer", "synthesize", "verify"]
+    assert nodes == ["planner", "search", "answer", "synthesize", "verify"]
