@@ -27,7 +27,7 @@ if _SRC.is_dir() and str(_SRC) not in sys.path:
 import gradio as gr
 
 from langgraph_research_pilot.graph import build_graph
-from langgraph_research_pilot.llm import MockLLM, get_llm
+from langgraph_research_pilot.llm import get_llm
 from langgraph_research_pilot.search import get_search
 
 MODEL_LABEL = os.environ.get("HF_MODEL", "meta-llama/Llama-3.2-3B-Instruct")

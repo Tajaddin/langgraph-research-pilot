@@ -20,8 +20,8 @@ import re
 import string
 import sys
 import time
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 # Make src importable when running this script directly.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))

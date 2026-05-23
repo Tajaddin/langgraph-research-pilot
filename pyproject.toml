@@ -67,3 +67,8 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# app.py mutates sys.path for HuggingFace Spaces before importing the
+# in-tree package, so imports cannot all sit at the top of the file.
+"app.py" = ["E402"]
