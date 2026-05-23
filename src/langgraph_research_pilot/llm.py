@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import re
-from typing import Callable, Protocol
+from collections.abc import Callable
+from typing import Protocol
 
 
 class LLMClient(Protocol):
@@ -28,7 +30,7 @@ class MockLLM:
     def __init__(
         self,
         canned: dict[str, str] | None = None,
-        handler: "Callable[[str, str | None], str] | None" = None,  # type: ignore[name-defined]
+        handler: Callable[[str, str | None], str] | None = None,  # type: ignore[name-defined]
     ) -> None:
         self.canned = canned or {}
         self.handler = handler
@@ -163,10 +165,8 @@ class GroqClient:
                 retry_after = getattr(getattr(exc, "response", None), "headers", {}) or {}
                 ra = retry_after.get("retry-after") if hasattr(retry_after, "get") else None
                 if ra:
-                    try:
+                    with contextlib.suppress(TypeError, ValueError):
                         wait_s = max(wait_s, float(ra))
-                    except (TypeError, ValueError):
-                        pass
                 time.sleep(wait_s)
                 backoff = min(backoff * 2, 60.0)
 

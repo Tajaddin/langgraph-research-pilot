@@ -46,9 +46,7 @@ def _prompt_continue(label: str) -> bool:
         return False
     if not choice or choice.lower().startswith("y"):
         return True
-    if choice.lower().startswith("n"):
-        return False
-    return True
+    return not choice.lower().startswith("n")
 
 
 def main(argv: list[str] | None = None) -> int:

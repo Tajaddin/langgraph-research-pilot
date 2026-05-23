@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Callable
+from collections.abc import Callable
 
 from langgraph_research_pilot.llm import LLMClient, extract_json
 from langgraph_research_pilot.search import SearchBackend

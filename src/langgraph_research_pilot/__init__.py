@@ -1,7 +1,14 @@
 """LangGraph research agent with human-in-the-loop approval gates."""
 
 from langgraph_research_pilot.graph import build_graph, make_sqlite_checkpointer
-from langgraph_research_pilot.llm import AnthropicClient, GroqClient, HFInferenceClient, LLMClient, MockLLM, get_llm
+from langgraph_research_pilot.llm import (
+    AnthropicClient,
+    GroqClient,
+    HFInferenceClient,
+    LLMClient,
+    MockLLM,
+    get_llm,
+)
 from langgraph_research_pilot.search import MockSearch, SearchBackend, WikipediaSearch, get_search
 from langgraph_research_pilot.state import (
     AuditEntry,

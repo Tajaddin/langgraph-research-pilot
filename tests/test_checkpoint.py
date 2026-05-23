@@ -17,9 +17,8 @@ from langgraph_research_pilot.graph import build_graph
 
 
 def test_sqlite_resume_across_fresh_graph(llm, search) -> None:
-    tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
-    tmp.close()
-    db_path = tmp.name
+    fd, db_path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
     thread_id = str(uuid.uuid4())
     config = {"configurable": {"thread_id": thread_id}}
     question = "Tell me about Marie Curie."
@@ -59,9 +58,8 @@ def test_sqlite_resume_across_fresh_graph(llm, search) -> None:
 
 
 def test_sqlite_state_persists_question_and_plan(llm, search) -> None:
-    tmp = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
-    tmp.close()
-    db_path = tmp.name
+    fd, db_path = tempfile.mkstemp(suffix=".db")
+    os.close(fd)
     thread_id = str(uuid.uuid4())
     config = {"configurable": {"thread_id": thread_id}}
 
