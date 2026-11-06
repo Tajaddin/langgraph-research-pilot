@@ -298,5 +298,10 @@ with gr.Blocks(title="LangGraph Research Pilot") as demo:
     )
 
 
+def launch(**kwargs):
+    """Start the server. Spaces runs this through ``python app.py``."""
+    return demo.queue().launch(theme=THEME, **kwargs)
+
+
 if __name__ == "__main__":
-    demo.queue().launch(theme=THEME)
+    launch()
