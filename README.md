@@ -185,13 +185,15 @@ python app.py
 40 tests covering parsing, individual nodes, end-to-end graph, HITL pause/resume, **SQLite kill-and-resume across a fresh Python process**, verify-node fact-checking, Wikipedia title encoding, and a launch of the Gradio app on the locked dependency set:
 
 ```bash
-pip install -e ".[dev]"
-pytest -ra
+uv sync --locked --all-extras
+uv run --frozen pytest -ra
 ```
 
 ```
-============================== 40 passed in 10.40s =============================
+40 passed in 15.30s
 ```
+
+With `pip install -e ".[dev]"` alone, gradio is not installed and the app launch test is skipped (39 passed, 1 skipped).
 
 ## Reproduce the benchmark
 
@@ -244,7 +246,7 @@ No streaming. Each node runs to completion before emitting a state delta. A toke
 │   ├── nodes.py                            # plan / search / answer / synthesize / verify
 │   ├── graph.py                            # StateGraph + interrupts + SqliteSaver
 │   └── cli.py                              # research-pilot CLI
-├── tests/                                  # 35 pytest cases
+├── tests/                                  # 40 pytest cases
 ├── bench/
 │   ├── hotpot_eval.py                      # benchmark runner
 │   ├── recompute.py                        # apples-to-apples first-line scoring
