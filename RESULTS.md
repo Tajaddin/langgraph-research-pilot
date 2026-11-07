@@ -1,5 +1,7 @@
 # HotpotQA benchmark results
 Backend: `AnthropicClient` | Model: `claude-haiku-4-5-20251001` | n=30 | seed=7
+
+Run committed in ae1834c (2026-05-11), when pyproject.toml set only lower bounds (`langgraph>=0.2.0`, `langchain-core>=0.3.0`); the exact library versions were not recorded. Not yet re-run on the current lock (langgraph 1.1.10, langchain-core 1.4.0) or since the Wikipedia title-encoding fix.
 ## Headline
 | Metric | Single-prompt baseline | Multi-step agent | Lift |
 |---|---:|---:|---:|

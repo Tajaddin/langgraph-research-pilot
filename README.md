@@ -4,7 +4,7 @@ emoji: 🧭
 colorFrom: indigo
 colorTo: gray
 sdk: gradio
-sdk_version: "4.44.1"
+sdk_version: "6.16.0"
 app_file: app.py
 pinned: false
 license: mit
@@ -97,6 +97,8 @@ cd langgraph-research-pilot
 pip install -e ".[anthropic,groq,ui,eval,dev]"
 ```
 
+`uv.lock` pins the whole dependency tree. `uv sync --locked --all-extras` installs exactly the set CI tests and the Space runs.
+
 ## Usage
 
 ### CLI
@@ -180,16 +182,18 @@ python app.py
 
 ## Tests
 
-35 tests covering parsing, individual nodes, end-to-end graph, HITL pause/resume, **SQLite kill-and-resume across a fresh Python process**, and verify-node fact-checking:
+40 tests covering parsing, individual nodes, end-to-end graph, HITL pause/resume, **SQLite kill-and-resume across a fresh Python process**, verify-node fact-checking, Wikipedia title encoding, and a launch of the Gradio app on the locked dependency set:
 
 ```bash
-pip install -e ".[dev]"
-pytest -ra
+uv sync --locked --all-extras
+uv run --frozen pytest -ra
 ```
 
 ```
-============================== 35 passed in 0.34s ==============================
+40 passed in 15.30s
 ```
+
+With `pip install -e ".[dev]"` alone, gradio is not installed and the app launch test is skipped (39 passed, 1 skipped).
 
 ## Reproduce the benchmark
 
@@ -213,6 +217,8 @@ This README's frontmatter already configures the Space. To publish:
    git push space main
    ```
 4. Spaces will install `requirements.txt` and serve `app.py` automatically.
+
+`requirements.txt` is exported from `uv.lock` (`uv export --frozen --no-hashes --no-emit-project --extra hf --extra ui -o requirements.txt`), and the front matter's `sdk_version` matches its gradio pin. CI fails if either drifts.
 
 Without `HF_TOKEN`, the Space starts in `MockLLM` mode and the UI flow is still inspectable.
 
@@ -240,7 +246,7 @@ No streaming. Each node runs to completion before emitting a state delta. A toke
 │   ├── nodes.py                            # plan / search / answer / synthesize / verify
 │   ├── graph.py                            # StateGraph + interrupts + SqliteSaver
 │   └── cli.py                              # research-pilot CLI
-├── tests/                                  # 35 pytest cases
+├── tests/                                  # 40 pytest cases
 ├── bench/
 │   ├── hotpot_eval.py                      # benchmark runner
 │   ├── recompute.py                        # apples-to-apples first-line scoring

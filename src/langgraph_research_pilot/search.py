@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 from typing import Protocol
+from urllib.parse import quote
 
 import httpx
 
@@ -92,7 +93,8 @@ class WikipediaSearch:
         return [hit["title"] for hit in hits]
 
     def _get_summary(self, client: httpx.Client, title: str) -> SearchResult | None:
-        url = f"{WIKI_REST}/{title.replace(' ', '_')}"
+        slug = title.replace(" ", "_")
+        url = f"{WIKI_REST}/{quote(slug, safe='')}"
         resp = client.get(url)
         if resp.status_code != 200:
             return None
@@ -100,7 +102,7 @@ class WikipediaSearch:
         extract = (data.get("extract") or "").strip()
         if not extract:
             return None
-        page_url = data.get("content_urls", {}).get("desktop", {}).get("page") or f"https://en.wikipedia.org/wiki/{title.replace(' ', '_')}"
+        page_url = data.get("content_urls", {}).get("desktop", {}).get("page") or f"https://en.wikipedia.org/wiki/{quote(slug)}"
         return make_search_result(
             title=data.get("title", title),
             url=page_url,
